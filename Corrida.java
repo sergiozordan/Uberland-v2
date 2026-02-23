@@ -6,19 +6,19 @@ public class Corrida{
 	public static final int SOLICITADA = 0;
     public static final int EM_ANDAMENTO = 1;
     public static final int FINALIZADA = 2;
-    public static final int CANCELADA_ANTES = 3;   // novo
-    public static final int CANCELADA_DURANTE = 4;  // novo
+    public static final int CANCELADA_ANTES = 3;   
+    public static final int CANCELADA_DURANTE = 4; 
     public static final double valorExtra = 5.00;
-    public static final int CANCELADA_POR_CLIENTE = 1;  // novo
-    public static final int CANCELADA_POR_MOTORISTA = 2;  //novo
+    public static final int CANCELADA_POR_CLIENTE = 1; 
+    public static final int CANCELADA_POR_MOTORISTA = 2; 
 	
 	private Cliente cliente;
 	private Veiculos veiculo;
 	private String origem;
 	private String destino;
 	private LocalDateTime dataHoraSolicitacao;
-	private String horaInicio;  // novo usar string para hora do inicio
-	private String horaChegada; // novo usar string para hora da cehgada
+	private String horaInicio;  
+	private String horaChegada; 
 	private int duracaoViagem;
 	private double distanciaRealKm;
 	private double valorTotal;
@@ -84,11 +84,11 @@ public class Corrida{
 		return statusCorrida;
 	}
 	
-	public String getHoraInicio() { // novo
+	public String getHoraInicio() { 
 		return horaInicio;
 	}
 	
-	public String getHoraChegada() { // novo
+	public String getHoraChegada() { 
 		return horaChegada;
 	}
 	
@@ -125,7 +125,7 @@ public class Corrida{
 		this.valorUberLand = valorUberLand;
 	}
 	
-	public int getCanceladaPor() { // novo
+	public int getCanceladaPor() { 
 		return canceladaPor;
 	}
 	
@@ -141,11 +141,11 @@ public class Corrida{
 	
 	
 	//metodos
-	public void iniciarCorrida(String horaInicio) { // novo verifica se o veiculo esta disponivel, ativo  e nao deletado
+	public void iniciarCorrida(String horaInicio) { // verifica se o veiculo esta disponivel, ativo  e nao deletado
 		if (statusCorrida == SOLICITADA && veiculo.isAtivo() && !veiculo.isDeletado() && veiculo.getStatus() == Veiculos.DISPONIVEL) {
 			this.statusCorrida = EM_ANDAMENTO;
 			this.horaInicio = horaInicio;
-			veiculo.setStatus(Veiculos.EM_VIAGEM); // novo - usar estatus do veiculo em corrida
+			veiculo.setStatus(Veiculos.EM_VIAGEM); // usar estatus do veiculo em corrida
 		}
 	}
 
@@ -157,27 +157,33 @@ public class Corrida{
 		this.duracaoViagem = calcularDuracaoViagem(horaInicio, horaChegada);
 		
 		if (duracaoViagem <= 5)
-			veiculo.setStatus(Veiculos.FINALIZANDO_VIAGEM); // novo - usar status finalizando viagem
+			veiculo.setStatus(Veiculos.FINALIZANDO_VIAGEM); // usar status finalizando viagem
 		else
-			veiculo.setStatus(Veiculos.DISPONIVEL);  // novo - usar estatus do veiculo em corrida
+			veiculo.setStatus(Veiculos.DISPONIVEL);  // usar estatus do veiculo em corrida
 				
 		this.statusCorrida = FINALIZADA;
 		this.distanciaRealKm = distanciaRealKm;
 		calcularValorViagem();
 		RegrasUberLand.calcularDivisaoCorrida(this);
-		veiculo.getMotorista().incrementaQtdecorridas(); // novo incrementar corrida ao motorista
-		cliente.incrementaQtdecorridas();              // novo incrementar corrida a cliente
-		cliente = RegrasUberLand.verificarClientevip(cliente); // novo verificar se tornou vip
+		veiculo.getMotorista().incrementaQtdecorridas(); // incrementar corrida ao motorista
+		cliente.incrementaQtdecorridas();              // incrementar corrida a cliente
+		
+		Cliente clienteatualizado = RegrasUberLand.verificarClientevip(cliente); // verificar se tornou vip
+		if (clienteatualizado != cliente ) {  // se criou um novo objeto, substitui no array
+			DadosCliente.substituirCliente(cliente, clienteatualizado);
+			cliente = clienteatualizado;
+		}
+		
 	}
 	
-	private int converterHoraParaMinutos(String horario) {  // novo para converter hora em minutos
+	private int converterHoraParaMinutos(String horario) {  //converter hora em minutos
 		String[] partes = horario.split(":");
 		int horas = Integer.parseInt(partes[0]);
 		int minutos = Integer.parseInt(partes[1]);
 		return horas * 60 + minutos;
 	}
 	
-	private int calcularDuracaoViagem(String inicio, String fim) { // novo corrigir metodo usando string
+	private int calcularDuracaoViagem(String inicio, String fim) { //corrigir metodo usando string
 		int minInicio = converterHoraParaMinutos (inicio);
 		int minFim = converterHoraParaMinutos (fim);
 		
@@ -188,14 +194,14 @@ public class Corrida{
 	}
 		
 	public void cancelarCorrida(int canceladaPor) {
-		if (statusCorrida == FINALIZADA) // novo nao pode cancelar corrida finalizada
+		if (statusCorrida == FINALIZADA) //nao pode cancelar corrida finalizada
 			return;
 		
 		if (statusCorrida == SOLICITADA) 
-			this.statusCorrida = CANCELADA_ANTES;	//novo cancelada antes ou durante
+			this.statusCorrida = CANCELADA_ANTES;	//cancelada antes ou durante
 		else if (statusCorrida == EM_ANDAMENTO) {
-			this.statusCorrida = CANCELADA_DURANTE;   //novo cancelada antes ou durante
-			veiculo.setStatus(Veiculos.DISPONIVEL);   // novo tornar veiculo disponivel novamente
+			this.statusCorrida = CANCELADA_DURANTE;   //cancelada antes ou durante
+			veiculo.setStatus(Veiculos.DISPONIVEL);   //tornar veiculo disponivel novamente
 		}
 		setCanceladaPor(canceladaPor);
 	}
@@ -208,13 +214,13 @@ public class Corrida{
 		return (statusCorrida == CANCELADA_ANTES || statusCorrida == CANCELADA_DURANTE) && canceladaPor == CANCELADA_POR_MOTORISTA;   //novo cancelado antes ou durante
 	}
 	
-	public void setCanceladaPor(int canceladaPor) {  // novo
+	public void setCanceladaPor(int canceladaPor) {  
 		if (canceladaPor == CANCELADA_POR_CLIENTE || canceladaPor == CANCELADA_POR_MOTORISTA)
 			this.canceladaPor = canceladaPor; 		
 	}
 	
 
-	private void calcularValorViagem() {              // novo - calcular desconto para cliente vip
+	private void calcularValorViagem() {              //calcular desconto para cliente vip
 		valorTotal = veiculo.calcularCustoViagem(distanciaRealKm);
 		
 		if(pagarValorExtra) {
@@ -230,7 +236,7 @@ public class Corrida{
 	}
 	
 	public void exibirDadosCorrida(){
-		System.out.println("----- Dados da Corrida -----");
+		System.out.println("\n----- Dados da Corrida -----");
 		System.out.println("Origem: " + getOrigem());
 		System.out.println("Destino: " + getDestino());
 		System.out.println("Data e Hora da Solicitação: " + getDataHoraSolicitacao());

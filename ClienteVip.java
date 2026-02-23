@@ -5,9 +5,9 @@ public class ClienteVip extends Cliente{
 
 	public ClienteVip (Cliente cliente) {
 		super(cliente.getNome(),cliente.getCpf(),cliente.getDataNasc(),cliente.getCel(),cliente.getEmail(), cliente.getSexo());
-		this.qtdecorridas = cliente.getQtdecorridas(); //novo
-		this.qtdeavaliacoes = cliente.getQtdeAvaliacoes(); // novo
-		this.avaliacao = cliente.getAvaliacao();       // novo
+		this.qtdecorridas = cliente.getQtdecorridas(); 
+		this.qtdeavaliacoes = cliente.getQtdeAvaliacoes(); 
+		this.avaliacao = cliente.getAvaliacao();      
 		setPagamento(cliente.getPagamento());
 		this.descontovip = RegrasUberLand.regraDescontovip(this);
 	}

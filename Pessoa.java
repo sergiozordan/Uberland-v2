@@ -4,7 +4,7 @@ public abstract class Pessoa {
 	private String cpf;
 	private String datanasc;
 	protected int qtdecorridas;
-	protected int qtdeavaliacoes;  // novo para calcular nota
+	protected int qtdeavaliacoes; 
 	protected float avaliacao;
 	
 	public Pessoa (String nome, String cpf, String datanasc) {
@@ -12,7 +12,7 @@ public abstract class Pessoa {
 		setCpf(cpf);
 		setDataNasc (datanasc);
 		this.qtdecorridas = 0;
-		this.qtdeavaliacoes = 0;  // novo para calcular nota
+		this.qtdeavaliacoes = 0;  
 		this.avaliacao = 0;
 	}
 	
@@ -131,7 +131,7 @@ public abstract class Pessoa {
 		this.qtdecorridas ++;
 	}
 	
-	public int getQtdeAvaliacoes() { // novo para calcular nota
+	public int getQtdeAvaliacoes() { 
 		return qtdeavaliacoes; 
 	}
 	
@@ -139,7 +139,7 @@ public abstract class Pessoa {
 		return avaliacao;
 	}
 
-	public void calculaAvalicao(float nota) {  // novo calculo da nota
+	public void calculaAvalicao(float nota) {  
 		if (nota < 0 || nota > 10)
 			return;
 			

@@ -1,3 +1,4 @@
+
 public class Cliente extends Pessoa{
 	private String cel;
 	private String email;
@@ -79,5 +80,11 @@ public class Cliente extends Pessoa{
 			this.pagamento = "CARTAO DE CREDITO";
 	}
 	
-		
+	public void exibirDadosCLIENTE(){
+		exibirDadosPESSOA();
+		System.out.println("Celular: " + cel);
+		System.out.println("E-mail: " + email);
+		System.out.println("Sexo: " + sexo);
+		System.out.println("Forma preferencial de pagamento: " + pagamento);
+	}	
 }

@@ -5,7 +5,7 @@ public class RegrasUberLand {
 	private static final double porcentagemUberLand = 0.6;
 	
 	public static Cliente verificarClientevip (Cliente cliente) {
-		if (cliente instanceof ClienteVip)  //novo evita criar cliente vip mais de uma vez
+		if (cliente instanceof ClienteVip)  //evita criar cliente vip mais de uma vez
 			return cliente;
 		
 		if (cliente.getQtdecorridas() >= corridasclientevip) {

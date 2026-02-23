@@ -50,7 +50,6 @@ public class UberComfort extends Veiculos {
 	        System.out.println("Espaço Extra: " + espacoExtra);
 	        System.out.println("Banco Reclinavel: " + bancoReclinavel);
 	        System.out.println("Ar Dual Zone: " + arDualZone);
-
 	    }
 	 
 }

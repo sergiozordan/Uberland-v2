@@ -1,5 +1,5 @@
 
-public abstract class  Veiculos {  // novo - ser abstrata
+public abstract class  Veiculos { 
 
 	  // --- Definindo os Status como constantes ---
     public static final int DISPONIVEL = 1;
@@ -18,7 +18,7 @@ public abstract class  Veiculos {  // novo - ser abstrata
     private boolean ativo;    //carro inativo => ativo = false e deletado=false
 	private boolean deletado; // carro ativo => ativo = true e deletado=false
                               // carro deletado=> ativo=false e deletado = true	
-	private Motorista motorista; //novo vincular motorista ao veiculo
+	private Motorista motorista; // vincular motorista ao veiculo
     
     public Veiculos(String placa, String chassi, String cor, int capacidade, int ano, String marca, String modelo) {
         setPlaca(placa);
@@ -58,7 +58,7 @@ public abstract class  Veiculos {  // novo - ser abstrata
     public String getModelo() {
         return modelo;
     }
-    public Motorista getMotorista() {  //novo vincular motorista ao veiculo
+    public Motorista getMotorista() {  
     	return motorista;
     }
     
@@ -107,7 +107,7 @@ public abstract class  Veiculos {  // novo - ser abstrata
 	}
 	public void desativar() {
 		ativo = false;
-		status = NAO_DISPONIVEL; //novo para usar o status nao disponivel
+		status = NAO_DISPONIVEL; 
 	}
 
 	public boolean isDeletado() {
@@ -117,15 +117,16 @@ public abstract class  Veiculos {  // novo - ser abstrata
 	public void deletar () {
 		deletado = true;
 		ativo = false;
+		status = NAO_DISPONIVEL;
 	}
 	
-	protected void setMotorista(Motorista motorista) { //novo vincular motorista ao veiculo
+	protected void setMotorista(Motorista motorista) { 
 		this.motorista = motorista;
 	}
 	
-	protected abstract double getTarifaMinima(); // novo - nao retorna valor nenhum
+	protected abstract double getTarifaMinima(); //nao retorna valor nenhum
 	
-	protected abstract double getCustoKm();  // novo - nao retorna valor nenhum
+	protected abstract double getCustoKm();  // nao retorna valor nenhum
 	
 	public double calcularCustoViagem(double distanciaKm) {
 	    if (distanciaKm < 0)
@@ -138,7 +139,7 @@ public abstract class  Veiculos {  // novo - ser abstrata
 	
 	  // Método base para exibir dados:
     public void exibirDadosV(){
-        System.out.println("Placa: " + placa);
+        System.out.println("\nPlaca: " + placa);
         System.out.println("Chassi: " + chassi);
         System.out.println("Cor: " + cor);
         System.out.println("Capacidade: " + capacidade);

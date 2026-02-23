@@ -54,7 +54,7 @@ public class Motorista extends Pessoa {
 		}
 	}
 	public void adicionarVeiculo(Veiculos v) {
-		v.setMotorista(this); //novo vincular motorista ao veiculo
+		v.setMotorista(this); // vincular motorista ao veiculo
 		veiculos.add(v);
 	}
 	
